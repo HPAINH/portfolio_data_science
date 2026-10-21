@@ -1,0 +1,767 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Герман Гаджимагомедов</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Портфолио Data Scientist / ML Engineer: компьютерное зрение, речь, генеративные модели, LLM-сервисы.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Caveat:wght@600&display=swap">
+<style>
+/* Layout: лабораторный журнал — каждый проект как эксперимент: текст слева, живой прибор справа; герой — срез МРТ + журнал обучения */
+:root{
+  --bg:#f2f4f3;
+  --surface:#ffffff;
+  --ink:#152120;
+  --muted:#5b6a68;
+  --line:#d5dcda;
+  --accent:#2f3db8;
+  --mask:#c2367a;
+  --scan-bg:#0b0f10;
+  --scan-panel:#121819;
+  --scan-fg:#e6ecea;
+  --scan-dim:#8a9a97;
+  --scan-line:#243031;
+  --paper:#f6f7f9;
+  --paper-grid:#c9d6ea;
+  --paper-ink:#1d2a7a;
+  --ok:#2e9d6a;
+  --display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body:"IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, "Cascadia Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0d1213; --surface:#141b1c; --ink:#e3e9e7; --muted:#93a3a0; --line:#263133;
+    --accent:#8e9aff; --mask:#ff70b2; --scan-bg:#06090a; --scan-panel:#0e1415; --scan-line:#1f2a2b;
+    --paper:#e9ecf1; --paper-grid:#b8c6dc; --ok:#4cc38a; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0d1213; --surface:#141b1c; --ink:#e3e9e7; --muted:#93a3a0; --line:#263133;
+  --accent:#8e9aff; --mask:#ff70b2; --scan-bg:#06090a; --scan-panel:#0e1415; --scan-line:#1f2a2b;
+  --paper:#e9ecf1; --paper-grid:#b8c6dc; --ok:#4cc38a; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{
+  background:var(--bg); color:var(--ink); font-family:var(--body); font-size:16px; line-height:1.6;
+  padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px));
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--accent); text-underline-offset:3px}
+a:focus-visible, button:focus-visible, input:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:4px}
+.wrap{max-width:1160px; margin:0 auto}
+h1,h2,h3{font-family:var(--display); text-wrap:balance; margin:0; line-height:1.08}
+.label{font-family:var(--mono); font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+
+nav.top{display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; padding-block:20px; border-bottom:1px solid var(--line)}
+nav.top .who{font-family:var(--mono); font-size:13px; display:flex; align-items:center; gap:8px}
+nav.top .who i{width:8px; height:8px; border-radius:50%; background:var(--ok); box-shadow:0 0 0 3px color-mix(in srgb, var(--ok) 25%, transparent)}
+nav.top ul{display:flex; gap:20px; list-style:none; margin:0; padding:0; flex-wrap:wrap}
+nav.top a{color:var(--ink); text-decoration:none; font-size:14px}
+nav.top a:hover{color:var(--accent)}
+
+.hero{display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,1fr); gap:48px; align-items:start; padding-block:56px 64px}
+.hero h1{font-size:clamp(34px, 5.2vw, 70px); font-weight:800; letter-spacing:-.03em; overflow-wrap:anywhere}
+.hero h1 span{display:block; color:var(--muted); font-weight:500}
+.role{margin:22px 0 0; font-size:21px; max-width:32ch; line-height:1.45}
+.role b{font-weight:600; color:var(--accent)}
+.pitch{color:var(--muted); max-width:56ch; margin:16px 0 0}
+.contacts{display:flex; flex-wrap:wrap; gap:10px; margin-top:28px}
+.chip{display:inline-flex; align-items:center; gap:8px; padding:9px 14px; border:1px solid var(--line); background:var(--surface); border-radius:999px; color:var(--ink); text-decoration:none; font-size:14px; font-family:var(--body); cursor:pointer; max-width:100%; overflow-wrap:anywhere}
+.chip:hover{border-color:var(--accent)}
+.chip.primary{background:var(--accent); border-color:var(--accent); color:var(--bg)}
+.toast{font-family:var(--mono); font-size:12px; color:var(--muted); margin-top:10px; min-height:1.2em}
+.facts{display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:16px; margin-top:36px; padding-top:22px; border-top:1px solid var(--line)}
+.facts .v{font-family:var(--mono); font-size:24px; font-variant-numeric:tabular-nums; line-height:1.1}
+.facts .k{font-size:13px; color:var(--muted); margin-top:4px}
+
+.inst{background:var(--scan-bg); color:var(--scan-fg); border-radius:16px; overflow:hidden; border:1px solid var(--scan-line); min-width:0}
+.inst-head{display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; align-items:center; padding:10px 14px; font-family:var(--mono); font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--scan-dim); border-bottom:1px solid var(--scan-line)}
+.inst-head .live{display:inline-flex; align-items:center; gap:6px; color:var(--scan-fg)}
+.inst-head .live::before{content:""; width:6px; height:6px; border-radius:50%; background:var(--mask); animation:blink 1.6s infinite}
+@keyframes blink{50%{opacity:.25}}
+@media (prefers-reduced-motion: reduce){.inst-head .live::before{animation:none}}
+.inst canvas, .inst svg{display:block; width:100%; height:auto; max-width:100%}
+.inst-foot{display:flex; flex-wrap:wrap; gap:10px 16px; align-items:center; padding:12px 14px; border-top:1px solid var(--scan-line); font-family:var(--mono); font-size:12px}
+.inst-foot .grow{flex:1 1 160px; min-width:0}
+.note{font-family:var(--mono); font-size:11px; color:var(--scan-dim)}
+.seg{display:inline-flex; border:1px solid var(--scan-line); border-radius:8px; overflow:hidden}
+.seg button{background:transparent; color:var(--scan-dim); border:0; padding:6px 10px; font:inherit; cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--scan-panel); color:var(--scan-fg); box-shadow:inset 0 -2px 0 var(--mask)}
+.btn{background:var(--mask); color:#fff; border:0; border-radius:8px; padding:7px 12px; font:inherit; font-weight:500; cursor:pointer}
+.btn:hover{filter:brightness(1.08)}
+input[type=range]{width:100%; accent-color:var(--mask)}
+.readouts{display:flex; gap:22px; flex-wrap:wrap}
+.ro .v{font-size:20px; font-variant-numeric:tabular-nums; color:var(--scan-fg)}
+.ro .v.hl{color:var(--mask)}
+.ro .k{font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:var(--scan-dim)}
+
+.hero-right{display:grid; gap:14px; min-width:0}
+.trainlog{display:grid; grid-template-columns:auto minmax(0,1fr); gap:14px; align-items:center; padding:12px 14px}
+.trainlog .stats{font-family:var(--mono); font-size:12px; display:grid; gap:2px; font-variant-numeric:tabular-nums; min-width:128px}
+.trainlog .stats b{color:var(--mask); font-weight:500}
+
+section{padding-block:64px; border-top:1px solid var(--line)}
+.sec-head{display:flex; justify-content:space-between; align-items:baseline; gap:16px; flex-wrap:wrap; margin-bottom:36px}
+.sec-head h2{font-size:clamp(30px, 4.4vw, 48px); font-weight:800; letter-spacing:-.02em}
+.sec-head p{margin:0; color:var(--muted); max-width:52ch}
+
+.pipe{display:grid; grid-template-columns:repeat(6, minmax(0,1fr)); margin:0; padding:0; counter-reset:st}
+.pipe li{list-style:none; position:relative; padding:18px 16px 16px 0; border-top:2px solid var(--line)}
+.pipe li::before{counter-increment:st; content:counter(st, decimal-leading-zero); font-family:var(--mono); font-size:12px; color:var(--accent); display:block; margin-bottom:8px}
+.pipe li::after{content:""; position:absolute; top:-6px; left:0; width:10px; height:10px; border-radius:50%; background:var(--bg); border:2px solid var(--accent)}
+.pipe b{display:block; font-family:var(--display); font-size:18px}
+.pipe span{display:block; color:var(--muted); font-size:14px; margin-top:4px}
+
+.exp{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.08fr); gap:44px; padding-block:44px; border-bottom:1px solid var(--line); align-items:start}
+.exp:last-child{border-bottom:0}
+.exp-main{min-width:0}
+.meta{display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-bottom:12px}
+.kind{font-family:var(--mono); font-size:11px; letter-spacing:.06em; text-transform:uppercase; padding:3px 8px; border-radius:4px; border:1px solid currentColor; color:var(--accent)}
+.kind.gen{color:var(--mask)}
+.exp h3{font-size:clamp(24px, 3vw, 34px); font-weight:800; letter-spacing:-.01em}
+.lede{margin:12px 0 0; max-width:60ch}
+.exp ul{margin:14px 0 0; padding-left:18px; color:var(--muted); max-width:62ch}
+.exp ul li{margin-top:5px}
+.exp ul li b{color:var(--ink); font-weight:600}
+.stack{display:flex; flex-wrap:wrap; gap:6px; margin-top:18px}
+.stack span{font-family:var(--mono); font-size:12px; padding:3px 8px; background:var(--surface); border:1px solid var(--line); border-radius:4px}
+.metrics{display:flex; gap:28px; flex-wrap:wrap; margin-top:22px}
+.metric .v{font-family:var(--mono); font-size:28px; font-weight:500; font-variant-numeric:tabular-nums; line-height:1.1}
+.metric .v small{font-size:14px; color:var(--muted)}
+.metric .k{font-size:13px; color:var(--muted); margin-top:2px}
+.metric.hl .v{color:var(--mask)}
+.voice-in{width:100%; background:var(--scan-panel); color:var(--scan-fg); border:1px solid var(--scan-line); border-radius:8px; padding:8px 10px; font:inherit}
+.chain{display:flex; flex-wrap:wrap; gap:6px; align-items:center; padding:12px 14px; border-top:1px solid var(--scan-line); font-family:var(--mono); font-size:11px; color:var(--scan-dim)}
+.chain span{padding:3px 7px; border:1px solid var(--scan-line); border-radius:4px; color:var(--scan-fg); transition:border-color .2s, color .2s}
+.chain span.on{border-color:var(--mask); color:var(--mask)}
+.violations{list-style:none; margin:0; padding:12px 14px; font-family:var(--mono); font-size:12px; display:grid; gap:4px; border-top:1px solid var(--scan-line)}
+.violations li{color:var(--scan-dim)}
+.violations li.bad{color:var(--mask)}
+.violations li.good{color:var(--ok)}
+
+.job{display:grid; grid-template-columns:180px minmax(0,1fr); gap:32px; padding-block:26px; border-bottom:1px solid var(--line)}
+.job:last-child{border-bottom:0}
+.job .when{font-family:var(--mono); font-size:13px; color:var(--muted); font-variant-numeric:tabular-nums}
+.job h3{font-size:24px}
+.job .pos{color:var(--accent); font-weight:500; margin-top:4px}
+.job ul{margin:12px 0 0; padding-left:18px; color:var(--muted); max-width:70ch}
+.job ul li{margin-top:4px}
+.job ul li b{color:var(--ink); font-weight:600}
+
+.skills{display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:28px}
+.skills h3{font-family:var(--mono); font-size:12px; font-weight:500; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin-bottom:12px}
+.skills ul{list-style:none; margin:0; padding:0; display:grid; gap:6px}
+
+.two{display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:40px}
+.list{list-style:none; margin:0; padding:0}
+.list li{padding-block:14px; border-bottom:1px solid var(--line)}
+.list li:last-child{border-bottom:0}
+.list .t{font-weight:600}
+.list .d{color:var(--muted); font-size:15px; margin-top:2px}
+
+footer{padding-block:56px 72px; border-top:1px solid var(--line)}
+footer h2{font-size:clamp(32px, 5vw, 60px); font-weight:800; letter-spacing:-.02em; max-width:16ch}
+
+@media (max-width:900px){
+  .hero{grid-template-columns:1fr; gap:36px; padding-block:40px 48px}
+  .exp{grid-template-columns:1fr; gap:24px}
+  .pipe{grid-template-columns:repeat(2, minmax(0,1fr)); row-gap:8px}
+  .job{grid-template-columns:1fr; gap:6px}
+  .skills{grid-template-columns:repeat(2, minmax(0,1fr))}
+  .two{grid-template-columns:1fr}
+}
+@media (max-width:460px){
+  .skills{grid-template-columns:1fr}
+  .facts{grid-template-columns:1fr 1fr}
+  .trainlog{grid-template-columns:1fr}
+  nav.top ul{gap:14px}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <nav class="top" aria-label="Разделы">
+    <div class="who"><i aria-hidden="true"></i>открыт к предложениям</div>
+    <ul>
+      <li><a href="#projects">Проекты</a></li>
+      <li><a href="#experience">Опыт</a></li>
+      <li><a href="#skills">Навыки</a></li>
+      <li><a href="#contact">Контакты</a></li>
+    </ul>
+  </nav>
+
+  <header class="hero">
+    <div>
+      <div class="label">Data Scientist · ML Engineer · Москва</div>
+      <h1 style="margin-top:14px">Герман<span>Гаджимагомедов</span></h1>
+      <p class="role">Обучаю модели для <b>компьютерного зрения</b>, речи и генерации и довожу их до работающего сервиса.</p>
+      <p class="pitch">Магистрант НИТУ «МИСИС», профиль «Искусственный интеллект и машинное обучение». Почти два года системного аналитика на практиках: перевожу бизнес-задачу в ML-постановку, выбираю метрику и считаю эффект внедрения.</p>
+      <div class="contacts">
+        <a class="chip primary" href="https://t.me/SA_BA_ML" target="_blank" rel="noopener">Telegram · @SA_BA_ML</a>
+        <a class="chip" href="https://github.com/HPAINH" target="_blank" rel="noopener">GitHub · HPAINH</a>
+        <button class="chip copy-mail" type="button" id="copy-mail-top" data-toast="toast-top">german.gadzhimagomedov.2003@mail.ru</button>
+      </div>
+      <div class="toast" id="toast-top" aria-live="polite"></div>
+      <div class="facts">
+        <div><div class="v">0.906</div><div class="k">Dice на 3D-МРТ</div></div>
+        <div><div class="v">~2 года</div><div class="k">практики в аналитике</div></div>
+        <div><div class="v">с отличием</div><div class="k">бакалавриат РТУ МИРЭА</div></div>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <figure class="inst" style="margin:0">
+        <div class="inst-head"><span>MRI · Task02_Heart · <span id="slice-lbl">slice 64/128</span></span><span class="live">сегментация</span></div>
+        <canvas id="scan" width="600" height="520" aria-label="Срез МРТ сердца с маской сегментации левого предсердия"></canvas>
+        <div class="inst-foot">
+          <div class="seg" role="group" aria-label="Модель">
+            <button type="button" id="m-att" aria-pressed="true">Attention U-Net</button>
+            <button type="button" id="m-base" aria-pressed="false">3D U-Net</button>
+          </div>
+          <label class="grow"><span class="note">срез</span><input type="range" id="slice" min="20" max="108" value="64" aria-label="Номер среза"></label>
+          <div class="readouts">
+            <div class="ro"><div class="v hl" id="dice-v">0.906</div><div class="k">Dice</div></div>
+            <div class="ro"><div class="v" id="hd-v">5.94</div><div class="k">HD95, мм</div></div>
+          </div>
+        </div>
+      </figure>
+      <div class="inst trainlog" aria-label="Схема обучения моделей">
+        <div class="stats">
+          <span>train.py · attention</span>
+          <span>epoch <b id="ep">150</b>/150</span>
+          <span>val Dice <b id="vd">0.906</b></span>
+          <span class="note">кривая схематичная</span>
+        </div>
+        <canvas id="curve" width="420" height="110" aria-label="Схематичная кривая обучения"></canvas>
+      </div>
+    </div>
+  </header>
+
+  <section>
+    <div class="sec-head"><h2>Как я работаю</h2><p>Один и тот же цикл в каждом проекте: от постановки до денег.</p></div>
+    <ol class="pipe">
+      <li><b>Задача</b><span>Интервью, требования, бизнес-метрика</span></li>
+      <li><b>Данные</b><span>Сбор, разметка, EDA, аугментации</span></li>
+      <li><b>Модель</b><span>Baseline, затем архитектура посильнее</span></li>
+      <li><b>Метрика</b><span>Валидация и честное сравнение</span></li>
+      <li><b>Сервис</b><span>CLI, API или веб-интерфейс, тесты</span></li>
+      <li><b>Эффект</b><span>Время, деньги, ROI внедрения</span></li>
+    </ol>
+  </section>
+
+  <section id="projects">
+    <div class="sec-head">
+      <h2>Проекты</h2>
+      <p>У каждого проекта справа живая демонстрация того, что делает модель. Двигайте ползунки и нажимайте кнопки.</p>
+    </div>
+
+    <article class="exp">
+      <div class="exp-main">
+        <div class="meta"><span class="kind">Computer Vision</span><span class="label">Медицинская 3D-сегментация</span></div>
+        <h3>Сегментация левого предсердия на МРТ с механизмом внимания</h3>
+        <p class="lede">Сравнение baseline 3D U-Net и Attention U-Net на датасете Medical Segmentation Decathlon (Task02_Heart). Итоговая работа «Цифровой кафедры» РТУ МИРЭА.</p>
+        <ul>
+          <li>Предобработка на TorchIO: ресэмплинг 1 мм, Z-нормализация, объём 128³, аугментации.</li>
+          <li>Лосс <b>0,7·Dice + 0,3·Focal</b>, AdamW, cosine/plateau scheduler, early stopping, mixed precision.</li>
+          <li>Модульный код: YAML-конфиги с наследованием, конфиги под 8 ГБ VRAM, 10 pytest-тестов.</li>
+        </ul>
+        <div class="metrics">
+          <div class="metric hl"><div class="v">+4.5 <small>п.п.</small></div><div class="k">Dice к baseline</div></div>
+          <div class="metric"><div class="v">−30%</div><div class="k">HD95: 8.52 → 5.94 мм</div></div>
+        </div>
+        <div class="stack"><span>PyTorch</span><span>MONAI</span><span>TorchIO</span><span>NumPy</span><span>pytest</span></div>
+      </div>
+      <div class="inst">
+        <div class="inst-head"><span>сравнение моделей · Dice</span><span>итог ИАР</span></div>
+        <canvas id="folds" width="600" height="300" aria-label="Сравнение Dice двух моделей"></canvas>
+        <div class="inst-foot"><span class="note">Переключите модель на срезе МРТ вверху: маска и столбец обновятся вместе.</span></div>
+      </div>
+    </article>
+
+    <article class="exp">
+      <div class="exp-main">
+        <div class="meta"><span class="kind">Speech · TTS</span><span class="label">Zero-shot клонирование голоса</span></div>
+        <h3>VoiceClone</h3>
+        <p class="lede">По нескольким секундам записи синтезирует речь голосом диктора из любого текста, с поддержкой русского языка.</p>
+        <ul>
+          <li>Подключаемые бэкенды <b>XTTS-v2</b> и <b>Chatterbox Multilingual</b> через общий интерфейс.</li>
+          <li>Проверка референса по SNR и клиппингу, нормализация и чанкинг текста, склейка аудио.</li>
+          <li>Оценка качества: сходство голоса по эмбеддингам ECAPA и CER по транскрипции Whisper.</li>
+          <li>Неслышимый водяной знак, provenance-JSON и обязательное согласие владельца голоса.</li>
+        </ul>
+        <div class="metrics">
+          <div class="metric"><div class="v">2</div><div class="k">TTS-модели за одним API</div></div>
+          <div class="metric"><div class="v">15</div><div class="k">pytest-тестов</div></div>
+        </div>
+        <div class="stack"><span>PyTorch</span><span>XTTS-v2</span><span>Whisper</span><span>ECAPA</span><span>Gradio</span></div>
+      </div>
+      <div class="inst">
+        <div class="inst-head"><span>мел-спектрограмма</span><span class="live">синтез</span></div>
+        <canvas id="spec" width="600" height="260" aria-label="Спектрограмма синтезированной речи"></canvas>
+        <div class="inst-foot">
+          <label class="grow"><span class="note">текст для синтеза</span>
+            <input class="voice-in" id="voice-text" type="text" value="Привет! Это мой синтезированный голос." maxlength="80"></label>
+        </div>
+        <div class="chain" id="chain">
+          <span>референс 6 с</span>→<span>SNR</span>→<span>эмбеддинг диктора</span>→<span>XTTS-v2</span>→<span>водяной знак</span>→<span>ECAPA · Whisper</span>
+        </div>
+        <div class="inst-foot"><span class="note">Иллюстрация пайплайна: спектрограмма строится из букв введённого текста, звук не воспроизводится.</span></div>
+      </div>
+    </article>
+
+    <article class="exp">
+      <div class="exp-main">
+        <div class="meta"><span class="kind gen">Generative</span><span class="label">Диффузионная модель с нуля</span></div>
+        <h3>Генерация рукописного текста</h3>
+        <p class="lede">Превращает печатный текст в тетрадные страницы, написанные от руки. Условная диффузионная модель написана без готовых библиотек генерации.</p>
+        <ul>
+          <li>UNet на <b>6,5 млн параметров</b>: v-prediction, DDIM-семплинг, classifier-free guidance, EMA весов.</li>
+          <li>Синтетический датасет на 49 тыс. изображений из 15 шрифтов; ~820 своих букв, нарезанных с фото через ArUco и гомографию.</li>
+          <li>Модель пока не достигла читаемого качества: причины и план улучшений описаны в README. Рабочий режим — процедурный рендер в PNG/PDF.</li>
+        </ul>
+        <div class="metrics">
+          <div class="metric hl"><div class="v">6.5<small> M</small></div><div class="k">параметров UNet</div></div>
+          <div class="metric"><div class="v">49k</div><div class="k">синтетических изображений</div></div>
+        </div>
+        <div class="stack"><span>PyTorch</span><span>OpenCV</span><span>NumPy</span><span>DDIM</span><span>CFG</span></div>
+      </div>
+      <div class="inst">
+        <div class="inst-head"><span>обратный процесс диффузии</span><span id="t-lbl">t = 0</span></div>
+        <canvas id="diff" width="600" height="250" aria-label="Проявление рукописного текста из шума"></canvas>
+        <div class="inst-foot">
+          <button class="btn" type="button" id="diff-run">Запустить DDIM · 50 шагов</button>
+          <label class="grow"><span class="note">шаг t: текст ← → шум</span><input type="range" id="diff-t" min="0" max="1000" value="0" aria-label="Шаг диффузии"></label>
+        </div>
+        <div class="inst-foot"><span class="note">Иллюстрация процесса x_t = √ᾱ·x₀ + √(1−ᾱ)·ε с косинусным расписанием, не вывод модели.</span></div>
+      </div>
+    </article>
+
+    <article class="exp">
+      <div class="exp-main">
+        <div class="meta"><span class="kind">Multimodal LLM</span><span class="label">ВКР · ООО «УКОМ СВ»</span></div>
+        <h3>ИИ-нормоконтроль планировок квартир</h3>
+        <p class="lede">Инструмент на GigaChat 2 Pro (Vision API) проверяет чертежи планировок по СП 54 и считает индекс эргономики.</p>
+        <ul>
+          <li>Пять модулей: DXF → PNG, нормоконтроль, индекс эргономики IE, рекомендации, PDF-протокол.</li>
+          <li>Индекс IE (0–100) по 6 критериям, веса методом Саати, согласованность <b>CR = 0,07</b>.</li>
+          <li>Экономика: инвестиции 208,5 тыс. ₽, эффект 1 888,6 тыс. ₽ в год, окупаемость 4 месяца.</li>
+        </ul>
+        <div class="metrics">
+          <div class="metric hl"><div class="v">3–7 <small>мин</small></div><div class="k">вместо 3–7 рабочих дней</div></div>
+          <div class="metric"><div class="v">906%</div><div class="k">ROI проекта</div></div>
+        </div>
+        <div class="stack"><span>GigaChat Vision</span><span>Python</span><span>Prompt Engineering</span><span>AHP</span></div>
+      </div>
+      <div class="inst">
+        <div class="inst-head"><span>планировка · пример</span><span id="ie-lbl">IE —</span></div>
+        <svg id="plan" viewBox="0 0 600 340" role="img" aria-label="План двухкомнатной квартиры с проверкой по нормам">
+          <defs>
+            <pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" fill="var(--scan-bg)"/><line x1="0" y1="0" x2="0" y2="6" stroke="var(--scan-line)" stroke-width="2"/></pattern>
+          </defs>
+          <rect x="20" y="20" width="560" height="300" fill="url(#hatch)"/>
+          <g id="rooms" font-family="IBM Plex Mono, monospace" font-size="12"></g>
+          <rect id="sweep" x="20" y="20" width="3" height="300" fill="var(--mask)" opacity="0"/>
+          <g id="gauge" transform="translate(500 288)"></g>
+        </svg>
+        <ul class="violations" id="viol"><li>Нажмите «Проверить», чтобы запустить нормоконтроль.</li></ul>
+        <div class="inst-foot">
+          <button class="btn" type="button" id="plan-run">Проверить по СП 54</button>
+          <span class="note grow">Условный пример квартиры: так выглядит отчёт инструмента.</span>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <section id="experience">
+    <div class="sec-head"><h2>Опыт</h2><p>Практики в компаниях: аналитика требований, проектирование систем и данных.</p></div>
+    <div>
+      <div class="job">
+        <div class="when">02.2026 — 06.2026</div>
+        <div>
+          <h3>Уком СВ</h3>
+          <div class="pos">Системный аналитик</div>
+          <ul>
+            <li>Нашёл узкое место: ручной нормоконтроль в AutoCAD занимает <b>3–7 дней</b> на секцию, управленческие расходы растут на 328% при выручке +9,1%.</li>
+            <li>Собрал требования у трёх групп стейкхолдеров, описал процессы AS-IS и TO-BE в BPMN 2.0.</li>
+            <li>Спроектировал ИИ-решение: цикл согласования сокращён с 18–22 до <b>2–4 рабочих дней</b>, трудоёмкость −70%.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="job">
+        <div class="when">02.2024 — 06.2025</div>
+        <div>
+          <h3>Целлюлоза.ру</h3>
+          <div class="pos">Бизнес-аналитик</div>
+          <ul>
+            <li>Агрегировал данные из SQL и обрабатывал в pandas для приоритизации функций и отчётов руководству.</li>
+            <li>Спроектировал ER-модель платформы, спецификацию REST API и архитектуру модуля рекомендаций, внедрённого в продакшен.</li>
+            <li>Время выхода новой книги на платформу <b>−20%</b>, критических багов на приёмке <b>−30%</b>.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="sec-head"><h2>Навыки</h2></div>
+    <div class="skills">
+      <div><h3>ML и DL</h3><ul><li>Классический ML, scikit-learn</li><li>CatBoost</li><li>PyTorch, TensorFlow</li><li>Hugging Face</li></ul></div>
+      <div><h3>Направления</h3><ul><li>Computer Vision, OpenCV</li><li>Сегментация изображений</li><li>LLM, RAG, NLP</li><li>Prompt Engineering</li></ul></div>
+      <div><h3>Данные и сервисы</h3><ul><li>Python, pandas, NumPy</li><li>SQL, PostgreSQL, ClickHouse</li><li>FastAPI, Docker</li><li>Git, Linux, Jupyter</li></ul></div>
+      <div><h3>Математика</h3><ul><li>Теория вероятностей</li><li>Математическая статистика</li><li>Линейная алгебра</li><li>Алгоритмы и структуры данных</li></ul></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="two">
+      <div>
+        <div class="sec-head" style="margin-bottom:12px"><h2>Ещё проекты</h2></div>
+        <ul class="list">
+          <li><div class="t">Методичка по ML для собеседований</div><div class="d">6 модулей с полными математическими выводами и сквозными числовыми примерами.</div></li>
+          <li><div class="t">Пособие по SQL для ML-специалистов</div><div class="d">29 глав на PostgreSQL 17: индексы, EXPLAIN, ACID, pgvector/HNSW.</div></li>
+          <li><div class="t">SQL Quest</div><div class="d">Бесплатная веб-игра для прокачки SQL: от JOIN до оконных функций.</div></li>
+          <li><div class="t"><a href="https://github.com/HPAINH/neonflow" target="_blank" rel="noopener">NEONFLOW</a></div><div class="d">Платформа командной работы: задачи, аналитика, база знаний, чат и звонки.</div></li>
+        </ul>
+      </div>
+      <div>
+        <div class="sec-head" style="margin-bottom:12px"><h2>Образование</h2></div>
+        <ul class="list">
+          <li><div class="t">НИТУ «МИСИС», магистратура · 2028</div><div class="d">09.04.03 Прикладная информатика, «Искусственный интеллект и машинное обучение».</div></li>
+          <li><div class="t">РТУ МИРЭА, бакалавриат · 2026</div><div class="d">Бизнес-информатика, «Архитектура предприятия». Диплом с отличием.</div></li>
+          <li><div class="t">РТУ МИРЭА, «Цифровая кафедра» · 2025</div><div class="d">Разработка и тестирование сервисов искусственного интеллекта.</div></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="label">Контакты</div>
+    <h2 style="margin-top:12px">Ищу стажировку или позицию junior Data Scientist</h2>
+    <div class="contacts">
+      <a class="chip primary" href="https://t.me/SA_BA_ML" target="_blank" rel="noopener">Написать в Telegram</a>
+      <a class="chip" href="https://github.com/HPAINH" target="_blank" rel="noopener">github.com/HPAINH</a>
+      <button class="chip copy-mail" type="button" id="copy-mail-bottom" data-toast="toast-bottom">Скопировать email</button>
+    </div>
+    <div class="toast" id="toast-bottom" aria-live="polite"></div>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var MAIL = 'german.gadzhimagomedov.2003@mail.ru';
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+  function rnd(seed){ return function(){ seed = (seed*16807) % 2147483647; return (seed-1)/2147483646; }; }
+  function onVisible(el, fn){
+    if(!('IntersectionObserver' in window)){ fn(); return; }
+    var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ io.disconnect(); fn(); } }); }, {threshold:.35});
+    io.observe(el);
+  }
+
+  document.querySelectorAll('.copy-mail').forEach(function(b){
+    b.addEventListener('click', function(){
+      var t = document.getElementById(b.getAttribute('data-toast'));
+      function done(m){ t.textContent = m; setTimeout(function(){ t.textContent=''; }, 2600); }
+      try{ navigator.clipboard.writeText(MAIL).then(function(){ done('Скопировано: '+MAIL); }, function(){ done(MAIL); }); }
+      catch(e){ done(MAIL); }
+    });
+  });
+
+  /* hero: MRI slice */
+  var sc = document.getElementById('scan');
+  var sctx = sc.getContext('2d'), SW = sc.width, SH = sc.height;
+  var r = rnd(42), grid = 26, g = [], i, j;
+  for(i=0;i<=grid;i++){ g[i]=[]; for(j=0;j<=grid;j++) g[i][j]=r(); }
+  function noise(x,y){
+    var gx=x*grid, gy=y*grid, x0=Math.min(Math.floor(gx),grid-1), y0=Math.min(Math.floor(gy),grid-1), fx=gx-x0, fy=gy-y0;
+    var sx=fx*fx*(3-2*fx), sy=fy*fy*(3-2*fy), a=g[x0][y0], b=g[x0+1][y0], c=g[x0][y0+1], d=g[x0+1][y0+1];
+    return a+(b-a)*sx+(c-a)*sy+(a-b-c+d)*sx*sy;
+  }
+  var speck = new Float32Array(SW*SH); for(i=0;i<speck.length;i++) speck[i]=r();
+  var off = document.createElement('canvas'); off.width=SW; off.height=SH;
+  var offx = off.getContext('2d');
+  var slice = 64, model = 'att';
+  function sliceScale(s){ var k=(s-20)/88; return 0.55 + 0.6*Math.sin(Math.PI*k); }
+  function renderSlice(s){
+    var img = offx.createImageData(SW,SH), px=img.data, f=sliceScale(s), ph=(s-64)/40;
+    for(var y=0;y<SH;y++) for(var x=0;x<SW;x++){
+      var u=x/SW, v=y/SH;
+      var dx=(u-.5)/.44, dy=(v-.53)/.4, body=Math.max(0,1-(dx*dx+dy*dy));
+      var hx=(u-.5-ph*.02)/.23, hy=(v-.5)/.22, heart=Math.max(0,1-(hx*hx+hy*hy));
+      var ax=(u-.57)/(.075*f), ay=(v-.43)/(.068*f), atr=Math.max(0,1-(ax*ax+ay*ay));
+      var vx=(u-.42)/.06, vy=(v-.56)/.08, ven=Math.max(0,1-(vx*vx+vy*vy));
+      var val = body*.4 + heart*.3 + atr*.6 + ven*.35 + (noise(u,v)*.35 + speck[y*SW+x]*.12)*body;
+      val = Math.max(0, Math.min(1, val));
+      var k=Math.round(val*228), o=(y*SW+x)*4;
+      px[o]=k; px[o+1]=Math.min(255,k+4); px[o+2]=Math.min(255,k+3); px[o+3]=255;
+    }
+    offx.putImageData(img,0,0);
+  }
+  function contour(kind, t){
+    var f=sliceScale(slice), cx=SW*.57, cy=SH*.43, R=SW*.064*f, pts=[];
+    for(var k=0;k<=140;k++){
+      var th=k/140*Math.PI*2;
+      var gt = 1 + .1*Math.sin(3*th+.4) + .05*Math.sin(5*th) + .03*Math.cos(2*th), m = gt;
+      if(kind==='att') m = gt*(1 + .025*Math.sin(7*th + t*.8));
+      if(kind==='base') m = gt*(1 + .11*Math.sin(4*th + 1.3) + .06*Math.sin(9*th + t*.6));
+      var ox = kind==='base' ? 5 : 0, oy = kind==='base' ? -3 : 0;
+      pts.push([cx+ox+Math.cos(th)*R*m*1.12, cy+oy+Math.sin(th)*R*m]);
+    }
+    return pts;
+  }
+  function path(ctx, p){ ctx.beginPath(); p.forEach(function(q,k){ k?ctx.lineTo(q[0],q[1]):ctx.moveTo(q[0],q[1]); }); ctx.closePath(); }
+  function drawScan(t){
+    sctx.drawImage(off,0,0);
+    var col = css('--mask') || '#ff70b2';
+    sctx.save(); path(sctx, contour(model, t)); sctx.globalAlpha=.3; sctx.fillStyle=col; sctx.fill();
+    sctx.globalAlpha=1; sctx.lineWidth=2.5; sctx.strokeStyle=col; sctx.stroke(); sctx.restore();
+    sctx.save(); path(sctx, contour('gt', 0)); sctx.setLineDash([5,5]); sctx.lineWidth=1.4; sctx.strokeStyle='rgba(235,240,238,.85)'; sctx.stroke(); sctx.restore();
+    sctx.save(); sctx.font='12px IBM Plex Mono, monospace';
+    sctx.fillStyle='rgba(235,240,238,.85)'; sctx.fillText('- - разметка врача', 16, SH-36);
+    sctx.fillStyle=col; sctx.fillText('■ предсказание модели', 16, SH-18); sctx.restore();
+  }
+  renderSlice(slice); drawScan(0);
+  var diceV=document.getElementById('dice-v'), hdV=document.getElementById('hd-v');
+  var bAtt=document.getElementById('m-att'), bBase=document.getElementById('m-base');
+  function setModel(m){
+    model=m; bAtt.setAttribute('aria-pressed', String(m==='att')); bBase.setAttribute('aria-pressed', String(m==='base'));
+    diceV.textContent = m==='att' ? '0.906' : '0.861'; hdV.textContent = m==='att' ? '5.94' : '8.52';
+    if(reduce) drawScan(0);
+    hl=m; drawFolds();
+  }
+  bAtt.addEventListener('click', function(){ setModel('att'); });
+  bBase.addEventListener('click', function(){ setModel('base'); });
+  var sl=document.getElementById('slice'), slLbl=document.getElementById('slice-lbl'), pending=false;
+  sl.addEventListener('input', function(){
+    slice=+sl.value; slLbl.textContent='slice '+slice+'/128';
+    if(!pending){ pending=true; requestAnimationFrame(function(){ renderSlice(slice); pending=false; if(reduce) drawScan(0); }); }
+  });
+
+  /* hero: training curve */
+  var cv=document.getElementById('curve'), cx=cv.getContext('2d'), CW=cv.width, CH=cv.height;
+  var ep=document.getElementById('ep'), vd=document.getElementById('vd'), cr=rnd(7), curveA=[], curveB=[];
+  for(var e=0;e<=150;e++){
+    var na=(cr()-.5)*.02*Math.exp(-e/60), nb=(cr()-.5)*.025*Math.exp(-e/60);
+    curveA.push(.906*(1-Math.exp(-e/20))+na); curveB.push(.861*(1-Math.exp(-e/24))+nb);
+  }
+  curveA[150]=.906; curveB[150]=.861;
+  function drawCurve(n){
+    cx.clearRect(0,0,CW,CH);
+    var pad=8, X=function(q){ return pad+(CW-2*pad)*q/150; }, Y=function(v){ return CH-pad-(CH-2*pad)*v; };
+    cx.strokeStyle=css('--scan-line'); cx.lineWidth=1;
+    [.25,.5,.75,1].forEach(function(v){ cx.beginPath(); cx.moveTo(pad,Y(v)); cx.lineTo(CW-pad,Y(v)); cx.stroke(); });
+    function line(arr, col, w){ cx.beginPath(); for(var q=0;q<=n;q++){ var y=Y(Math.max(0,arr[q])); q?cx.lineTo(X(q),y):cx.moveTo(X(q),y);} cx.strokeStyle=col; cx.lineWidth=w; cx.stroke(); }
+    line(curveB, css('--scan-dim'), 1.5);
+    line(curveA, css('--mask'), 2.2);
+    cx.fillStyle=css('--mask'); cx.beginPath(); cx.arc(X(n),Y(Math.max(0,curveA[n])),3.5,0,7); cx.fill();
+    cx.font='11px IBM Plex Mono, monospace'; cx.fillStyle=css('--scan-dim'); cx.textAlign='right'; cx.fillText('3D U-Net', CW-pad, Y(.861)+15); cx.textAlign='left';
+    ep.textContent=n; vd.textContent=Math.max(0,curveA[n]).toFixed(3);
+  }
+  drawCurve(150);
+  if(!reduce){
+    var t0c=null;
+    requestAnimationFrame(function step(now){ if(t0c===null) t0c=now; var n=Math.min(150, Math.round((now-t0c)/24)); drawCurve(n); if(n<150) requestAnimationFrame(step); });
+  }
+
+  /* model comparison chart */
+  var fc=document.getElementById('folds'), fx=fc.getContext('2d'), FW=fc.width, FH=fc.height, hl='att';
+  function drawFolds(){
+    fx.clearRect(0,0,FW,FH);
+    var L=70, R=FW-30, T=40, B=FH-50, lo=.8, hi=.95;
+    var Y=function(v){ return B-(B-T)*(v-lo)/(hi-lo); };
+    fx.font='12px IBM Plex Mono, monospace'; fx.textAlign='right';
+    [.80,.85,.90,.95].forEach(function(v){
+      fx.strokeStyle=css('--scan-line'); fx.lineWidth=1; fx.beginPath(); fx.moveTo(L,Y(v)); fx.lineTo(R,Y(v)); fx.stroke();
+      fx.fillStyle=css('--scan-dim'); fx.fillText(v.toFixed(2), L-10, Y(v)+4);
+    });
+    var bars=[{n:'3D U-Net', v:.861, k:'base'},{n:'Attention U-Net', v:.906, k:'att'}], bw=(R-L)/4;
+    bars.forEach(function(b,k){
+      var x=L+bw*(.6+k*1.8), on=hl===b.k, col=b.k==='att'?css('--mask'):css('--scan-dim');
+      fx.globalAlpha=on?1:.4; fx.fillStyle=col; fx.fillRect(x, Y(b.v), bw, B-Y(b.v));
+      fx.globalAlpha=1; fx.textAlign='center'; fx.fillStyle=css('--scan-fg');
+      fx.font='500 20px IBM Plex Mono, monospace'; fx.fillText(b.v.toFixed(3), x+bw/2, Y(b.v)-10);
+      fx.font='12px IBM Plex Mono, monospace'; fx.fillStyle=on?css('--scan-fg'):css('--scan-dim'); fx.fillText(b.n, x+bw/2, B+22);
+    });
+    fx.textAlign='left'; fx.fillStyle=css('--scan-dim'); fx.font='11px IBM Plex Mono, monospace';
+    fx.fillText('ось Dice начинается с 0.80', L, FH-10);
+  }
+  drawFolds();
+
+  /* spectrogram */
+  var spc=document.getElementById('spec'), px2=spc.getContext('2d'), PW=spc.width, PH=spc.height;
+  var vin=document.getElementById('voice-text'), chainEls=document.querySelectorAll('#chain span');
+  var vowels={'а':[.18,.36,.62],'я':[.18,.38,.64],'о':[.14,.24,.6],'ё':[.14,.27,.62],'у':[.1,.2,.58],'ю':[.1,.24,.6],'и':[.08,.55,.75],'ы':[.1,.42,.66],'э':[.16,.46,.7],'е':[.15,.5,.72],
+               'a':[.18,.36,.62],'o':[.14,.24,.6],'u':[.1,.2,.58],'i':[.08,.55,.75],'e':[.15,.5,.72],'y':[.1,.42,.66]};
+  var fric='сшщжзфхцчszfhcx', stops='пбтдкгptdkbgq', son='млнрвйьmlnrvwj';
+  var specImg=null, head=0, specRun=false;
+  function cmap(v){
+    var a=[[6,9,10],[47,61,184],[194,54,122],[255,214,226]], s=v*3, k=Math.min(2,Math.floor(s)), f=s-k, p=a[k], q=a[k+1];
+    return [p[0]+(q[0]-p[0])*f, p[1]+(q[1]-p[1])*f, p[2]+(q[2]-p[2])*f];
+  }
+  function buildSpec(text){
+    var rr=rnd(11), cols=[], s=(text||' ').toLowerCase();
+    for(var c=0;c<s.length;c++){ var ch=s[c], len= ch===' '?4:(vowels[ch]?9:5); for(var k=0;k<len;k++) cols.push({ch:ch, k:k, len:len}); }
+    if(!cols.length) cols.push({ch:' ',k:0,len:1});
+    var N=cols.length, img=px2.createImageData(PW,PH), d=img.data;
+    for(var x=0;x<PW;x++){
+      var col=cols[Math.min(N-1, Math.floor(x/PW*N))], ch=col.ch, env=Math.sin(Math.PI*(col.k+.5)/col.len), pitch=.035+.006*Math.sin(x/40);
+      for(var y=0;y<PH;y++){
+        var f=1-y/PH, v=rr()*.06;
+        if(vowels[ch]){
+          var fm=vowels[ch], harm=Math.pow(Math.max(0,Math.cos(Math.PI*f/pitch)),6);
+          var formant=Math.exp(-Math.pow((f-fm[0])/.035,2))+.8*Math.exp(-Math.pow((f-fm[1])/.04,2))+.5*Math.exp(-Math.pow((f-fm[2])/.05,2));
+          v+= env*(.25*harm + .75*formant*(.55+.45*harm)) * Math.exp(-f*.6);
+        } else if(fric.indexOf(ch)>=0){ v+= env*.7*rr()*Math.max(0,(f-.45)*1.8); }
+        else if(stops.indexOf(ch)>=0){ v+= (col.k===col.len-1?.8:0)*rr(); }
+        else if(son.indexOf(ch)>=0){ v+= env*.5*Math.exp(-Math.pow((f-.12)/.05,2)) + env*.18*Math.pow(Math.max(0,Math.cos(Math.PI*f/pitch)),6); }
+        v=Math.max(0,Math.min(1,v)); var c3=cmap(v), o=(y*PW+x)*4;
+        d[o]=c3[0]; d[o+1]=c3[1]; d[o+2]=c3[2]; d[o+3]=255;
+      }
+    }
+    specImg=img;
+  }
+  function drawSpec(){
+    if(!specImg) return;
+    px2.putImageData(specImg,0,0);
+    if(head<PW){ px2.fillStyle='rgba(6,9,10,.6)'; px2.fillRect(head,0,PW-head,PH); px2.fillStyle='rgba(235,240,238,.9)'; px2.fillRect(head,0,2,PH); }
+    px2.font='11px IBM Plex Mono, monospace'; px2.fillStyle='rgba(235,240,238,.8)';
+    px2.fillText('8 кГц', 8, 16); px2.fillText('0 Гц', 8, PH-8);
+    var stage=Math.min(chainEls.length-1, Math.floor(head/PW*chainEls.length));
+    chainEls.forEach(function(el,k){ el.classList.toggle('on', k<=stage); });
+  }
+  buildSpec(vin.value); head=PW; drawSpec();
+  function runSpec(){
+    if(reduce){ head=PW; drawSpec(); return; }
+    head=0; if(specRun) return; specRun=true;
+    requestAnimationFrame(function st(){ head=Math.min(PW, head+4); drawSpec(); if(head<PW) requestAnimationFrame(st); else specRun=false; });
+  }
+  var vt=null;
+  vin.addEventListener('input', function(){ clearTimeout(vt); vt=setTimeout(function(){ buildSpec(vin.value); runSpec(); }, 250); });
+  onVisible(spc, runSpec);
+
+  /* diffusion */
+  var dc=document.getElementById('diff'), dx=dc.getContext('2d'), DW=dc.width, DH=dc.height;
+  var dt=document.getElementById('diff-t'), tl=document.getElementById('t-lbl');
+  var x0=null, eps=new Float32Array(DW*DH), gr2=rnd(99);
+  for(i=0;i<eps.length;i+=2){
+    var u1=Math.max(1e-7,gr2()), u2=gr2(), mm=Math.sqrt(-2*Math.log(u1));
+    eps[i]=mm*Math.cos(2*Math.PI*u2); if(i+1<eps.length) eps[i+1]=mm*Math.sin(2*Math.PI*u2);
+  }
+  function hexRGB(h){ h=(h||'').replace('#',''); if(h.length===3) h=h.split('').map(function(c){return c+c;}).join(''); var n=parseInt(h,16); if(isNaN(n)) n=0; return [n>>16&255, n>>8&255, n&255]; }
+  function buildX0(){
+    var o=document.createElement('canvas'); o.width=DW; o.height=DH; var ox=o.getContext('2d');
+    ox.fillStyle='#000'; ox.fillRect(0,0,DW,DH); ox.fillStyle='#fff';
+    ox.font='600 96px Caveat, "Segoe Script", cursive'; ox.textAlign='center'; ox.textBaseline='middle';
+    ox.save(); ox.translate(DW/2, DH/2+4); ox.rotate(-.04); ox.fillText('Привет, мир', 0, 0); ox.restore();
+    var dd=ox.getImageData(0,0,DW,DH).data; x0=new Float32Array(DW*DH);
+    for(var p=0;p<x0.length;p++) x0[p]=dd[p*4]/255*2-1;
+  }
+  function abar(t){ var s=.008, f=Math.cos(((t/1000)+s)/(1+s)*Math.PI/2), f0=Math.cos(s/(1+s)*Math.PI/2); return Math.max(1e-4, (f*f)/(f0*f0)); }
+  function drawDiff(t){
+    if(!x0) return;
+    var paper=hexRGB(css('--paper')), gridc=hexRGB(css('--paper-grid')), ink=hexRGB(css('--paper-ink'));
+    var a=abar(t), sa=Math.sqrt(a), sb=Math.sqrt(1-a), img=dx.createImageData(DW,DH), d=img.data, cell=25;
+    for(var y=0;y<DH;y++) for(var x=0;x<DW;x++){
+      var p=y*DW+x, v=sa*x0[p]+sb*eps[p], al=Math.max(0,Math.min(1,(v+1)/2));
+      var base=((x%cell===0)||(y%cell===0))?gridc:paper, o=p*4;
+      d[o]=base[0]+(ink[0]-base[0])*al; d[o+1]=base[1]+(ink[1]-base[1])*al; d[o+2]=base[2]+(ink[2]-base[2])*al; d[o+3]=255;
+    }
+    dx.putImageData(img,0,0);
+    tl.textContent='t = '+Math.round(t)+' · ᾱ = '+a.toFixed(3);
+  }
+  var diffRunning=false;
+  function runDiff(){
+    if(!x0) return;
+    if(reduce){ dt.value=0; drawDiff(0); return; }
+    if(diffRunning) return; diffRunning=true;
+    var steps=50, k=0;
+    (function st(){
+      var t=1000*(1-k/steps); dt.value=t; drawDiff(t); k++;
+      if(k<=steps) setTimeout(function(){ requestAnimationFrame(st); }, 45); else diffRunning=false;
+    })();
+  }
+  dt.addEventListener('input', function(){ drawDiff(+dt.value); });
+  document.getElementById('diff-run').addEventListener('click', runDiff);
+  var diffInit=false;
+  function initDiff(){ if(diffInit) return; diffInit=true; buildX0(); dt.value=0; drawDiff(0); onVisible(dc, runDiff); }
+  if(document.fonts && document.fonts.load){ document.fonts.load('600 96px Caveat').then(initDiff, initDiff); setTimeout(initDiff, 2500); }
+  else initDiff();
+
+  /* floor plan */
+  var NS='http://www.w3.org/2000/svg';
+  var rooms=[
+    {n:'Гостиная', a:18.4, x:20, y:20, w:300, h:170, ok:true, norm:'общая комната ≥ 16 м²'},
+    {n:'Спальня', a:7.6, x:320, y:20, w:150, h:140, ok:false, norm:'спальня ≥ 8 м²'},
+    {n:'Кухня', a:7.4, x:20, y:190, w:180, h:130, ok:false, norm:'кухня ≥ 8 м²'},
+    {n:'Прихожая', a:6.2, x:200, y:190, w:180, h:130, ok:true, norm:'ширина ≥ 1,4 м'},
+    {n:'Санузел', a:4.1, x:470, y:20, w:110, h:140, ok:true, norm:'ширина ≥ 1,5 м'}
+  ];
+  var gRooms=document.getElementById('rooms'), sweep=document.getElementById('sweep'), gauge=document.getElementById('gauge');
+  var viol=document.getElementById('viol'), ieLbl=document.getElementById('ie-lbl');
+  function el(n, attrs, txt){ var e=document.createElementNS(NS,n); for(var k in attrs) e.setAttribute(k, attrs[k]); if(txt!=null) e.textContent=txt; return e; }
+  rooms.forEach(function(rm){
+    var g1=el('g',{});
+    rm.el=el('rect',{x:rm.x+3,y:rm.y+3,width:rm.w-6,height:rm.h-6,fill:'var(--scan-panel)',stroke:'var(--scan-fg)','stroke-width':3});
+    g1.appendChild(rm.el);
+    g1.appendChild(el('text',{x:rm.x+14,y:rm.y+26,fill:'var(--scan-fg)'},rm.n));
+    g1.appendChild(el('text',{x:rm.x+14,y:rm.y+44,fill:'var(--scan-dim)'},rm.a.toFixed(1).replace('.',',')+' м²'));
+    gRooms.appendChild(g1);
+  });
+  function drawGauge(v){
+    while(gauge.firstChild) gauge.removeChild(gauge.firstChild);
+    var R2=46;
+    function arc(frac){ var a1=Math.PI+Math.PI*frac; return 'M'+(-R2)+' 0 A'+R2+' '+R2+' 0 0 1 '+(R2*Math.cos(a1)).toFixed(2)+' '+(R2*Math.sin(a1)).toFixed(2); }
+    gauge.appendChild(el('path',{d:arc(1),fill:'none',stroke:'var(--scan-line)','stroke-width':10}));
+    gauge.appendChild(el('path',{d:arc(Math.max(.001,v/100)),fill:'none',stroke:'var(--mask)','stroke-width':10}));
+    gauge.appendChild(el('text',{x:0,y:-6,'text-anchor':'middle',fill:'var(--scan-fg)','font-family':'IBM Plex Mono, monospace','font-size':22},Math.round(v)));
+    gauge.appendChild(el('text',{x:0,y:12,'text-anchor':'middle',fill:'var(--scan-dim)','font-family':'IBM Plex Mono, monospace','font-size':10},'IE / 100'));
+  }
+  drawGauge(0);
+  function finishPlan(){
+    rooms.forEach(function(rm){ rm.el.setAttribute('stroke', rm.ok?'var(--scan-fg)':'var(--mask)'); rm.el.setAttribute('fill', rm.ok?'var(--scan-panel)':'color-mix(in srgb, var(--mask) 18%, var(--scan-panel))'); });
+    viol.innerHTML='';
+    rooms.forEach(function(rm){
+      var li=document.createElement('li'); li.className=rm.ok?'good':'bad';
+      li.textContent=(rm.ok?'✓ ':'✕ ')+rm.n+' '+rm.a.toFixed(1).replace('.',',')+' м² · норма: '+rm.norm;
+      viol.appendChild(li);
+    });
+    ieLbl.textContent='IE 72 · 2 замечания';
+  }
+  var planRunning=false;
+  function runPlan(){
+    if(planRunning) return; planRunning=true;
+    rooms.forEach(function(rm){ rm.el.setAttribute('stroke','var(--scan-fg)'); rm.el.setAttribute('fill','var(--scan-panel)'); });
+    viol.innerHTML='<li>Анализ изображения чертежа…</li>'; ieLbl.textContent='IE —';
+    if(reduce){ drawGauge(72); finishPlan(); planRunning=false; return; }
+    var t0=null; sweep.setAttribute('opacity','.9');
+    requestAnimationFrame(function st(now){
+      if(t0===null) t0=now; var k=Math.min(1,(now-t0)/1800), x=20+557*k;
+      sweep.setAttribute('x',x);
+      rooms.forEach(function(rm){ if(!rm.ok && x>rm.x+rm.w/2) rm.el.setAttribute('stroke','var(--mask)'); });
+      drawGauge(72*k);
+      if(k<1) requestAnimationFrame(st); else { sweep.setAttribute('opacity','0'); finishPlan(); planRunning=false; }
+    });
+  }
+  document.getElementById('plan-run').addEventListener('click', runPlan);
+  onVisible(document.getElementById('plan'), runPlan);
+
+  /* hero loop */
+  if(!reduce){
+    var t0h=performance.now();
+    requestAnimationFrame(function loop(now){ drawScan((now-t0h)/1000); requestAnimationFrame(loop); });
+  }
+  try{
+    matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(){ drawFolds(); drawCurve(150); drawDiff(+dt.value); drawSpec(); drawScan(0); });
+  }catch(e){}
+})();
+</script>
+</body>
+</html>
